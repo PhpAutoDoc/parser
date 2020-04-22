@@ -1,0 +1,21 @@
+/**
+ * Inserts a method.
+ *
+ * @param int     :p_mth_id         The ID of the the method.
+ * @param int     :p_mar_ordinal    The ordinal of the argument.
+ * @param varchar :p_mar_type_name  The type of the argument.
+ * @param varchar :p_mar_name       The name of the argument.
+ * @param varchar :p_mar_default    The default value of the argument.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_CLASS_METHOD_ARGUMENT( mth_id
+,                                      mar_ordinal
+,                                      mar_type_name
+,                                      mar_name
+,                                      mar_default )
+values( :p_mth_id
+,       :p_mar_ordinal
+,       :p_mar_type_name
+,       :p_mar_name
+,       :p_mar_default );

@@ -1,0 +1,10 @@
+/**
+ * Marks a file as been parsed.
+ *
+ * @param int :p_fil_id  The ID of the source file.
+ *
+ * @type none
+ */
+update PAD_FILE
+set    fil_is_parsed = 1
+where  fil_id = :p_fil_id

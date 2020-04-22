@@ -1,0 +1,9 @@
+/**
+ * Deletes an obsolete source file.
+ *
+ * @param int :p_fil_id The ID of the source file.
+ *
+ * @type none
+ */
+delete from PAD_FILE
+where fil_id = :p_fil_id

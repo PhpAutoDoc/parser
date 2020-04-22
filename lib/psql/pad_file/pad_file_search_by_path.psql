@@ -1,0 +1,11 @@
+/**
+ * Search for a source file given a path to a file.
+ *
+ * @param string :p_fil_path The path to the source file.
+ *
+ * @type row0
+ */
+select fil_id
+,      fil_contents
+from   PAD_FILE
+where  fil_path = :p_fil_path

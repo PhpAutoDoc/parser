@@ -1,0 +1,12 @@
+/**
+ * Returns true if a table exists. Otherwise returns false.
+ *
+ * @param string :p_table_name The name of the table.
+ *
+ * @type   singleton1
+ * @return bool
+ */
+select count(*)
+from   sqlite_master
+where  type = 'table'
+and    name = :p_table_name

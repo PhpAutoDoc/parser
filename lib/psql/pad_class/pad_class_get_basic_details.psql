@@ -1,0 +1,16 @@
+/**
+ * Selects the basic details of a class.
+ *
+ * @param int :p_cls_id The ID of the class.
+ *
+ * @type row1
+ */
+select cls_id
+,      doc_id
+,      fil_id
+,      cls_name
+,      cls_namespace
+,      cls_fully_qualified_name
+,      cls_tokens
+from   PAD_CLASS
+where  cls_id = :p_cls_id

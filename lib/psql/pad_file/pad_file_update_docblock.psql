@@ -1,0 +1,11 @@
+/**
+ * Updates the docblock of a source file.
+ *
+ * @param int :p_fil_id The ID of the source file.
+ * @param int :p_doc_id The ID of the docblock.
+ *
+ * @type none
+ */
+update PAD_FILE
+set    doc_id = :p_doc_id
+where  fil_id = :p_fil_id

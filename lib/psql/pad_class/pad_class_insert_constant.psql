@@ -1,0 +1,27 @@
+/**
+ * Inserts a class constant.
+ *
+ * @param int     :p_cls_id         The ID of the class of the constant.
+ * @param int     :p_doc_id         The ID of the docblock of the constant.
+ * @param varchar :p_cct_name       The name of the constant.
+ * @param varchar :p_cct_visibility The visibility of the constant.
+ * @param varchar :p_cct_value      The default value of the constant.
+ * @param int     :p_cct_line_start The first line of the constant definition.
+ * @param int     :p_cct_line_end   The last line of the constant definition.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_CLASS_CONSTANT( cls_id
+,                               doc_id
+,                               cct_name
+,                               cct_visibility
+,                               cct_value
+,                               cct_line_start
+,                               cct_line_end )
+values( :p_cls_id
+,       :p_doc_id
+,       :p_cct_name
+,       :p_cct_visibility
+,       :p_cct_value
+,       :p_cct_line_start
+,       :p_cct_line_end )

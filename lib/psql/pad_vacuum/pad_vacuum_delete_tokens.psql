@@ -1,0 +1,7 @@
+/**
+ * Deletes tokens.
+ *
+ * @type none
+ */
+update PAD_CLASS
+set cls_tokens = null

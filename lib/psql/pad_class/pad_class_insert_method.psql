@@ -1,0 +1,39 @@
+/**
+ * Inserts a method.
+ *
+ * @param int     :p_cls_id               The ID of the class of the method.
+ * @param int     :p_doc_id               The ID of the docblock of the method.
+ * @param varchar :p_mth_name             The name of the method.
+ * @param int     :p_mth_is_abstract      If 1 method is abstract.
+ * @param int     :p_mth_is_constructor   If 1 method is object constructor.
+ * @param int     :p_mth_is_destructor    If 1 method is object destructor.
+ * @param int     :p_mth_is_final         If 1 method is final.
+ * @param int     :p_mth_is_static        If 1 method is static.
+ * @param varchar :p_mth_visibility       The visibility of the method.
+ * @param int     :p_mth_line_start The first line of the constant definition.
+ * @param int     :p_mth_line_end   The last line of the constant definition.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_CLASS_METHOD( cls_id
+,                             doc_id
+,                             mth_name
+,                             mth_is_abstract
+,                             mth_is_constructor
+,                             mth_is_destructor
+,                             mth_is_final
+,                             mth_is_static
+,                             mth_visibility
+,                             mth_line_start
+,                             mth_line_end )
+values( :p_cls_id
+,       :p_doc_id
+,       :p_mth_name
+,       :p_mth_is_abstract
+,       :p_mth_is_constructor
+,       :p_mth_is_destructor
+,       :p_mth_is_final
+,       :p_mth_is_static
+ ,      :p_mth_visibility
+,       :p_mth_line_start
+,       :p_mth_line_end )

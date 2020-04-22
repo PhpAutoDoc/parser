@@ -1,0 +1,30 @@
+/**
+ * Inserts a class property.
+ *
+ * @param int     :p_cls_id         The ID of the class of the property.
+ * @param int     :p_doc_id         The ID of the docblock of the property.
+ * @param varchar :p_pty_name       The name of the property.
+ * @param int     :p_pty_is_static  If 1 property is static.
+ * @param varchar :p_pty_visibility The visibility of the property.
+ * @param varchar :p_pty_value      The default value of the property.
+ * @param int     :p_pty_line_start The first line of the property definition.
+ * @param int     :p_pty_line_end   The last line of the property definition.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_CLASS_PROPERTY( cls_id
+,                               doc_id
+,                               pty_name
+,                               pty_is_static
+,                               pty_visibility
+,                               pty_value
+,                               pty_line_start
+,                               pty_line_end )
+values( :p_cls_id
+,       :p_doc_id
+,       :p_pty_name
+,       :p_pty_is_static
+,       :p_pty_visibility
+,       :p_pty_value
+,       :p_pty_line_start
+,       :p_pty_line_end )

@@ -1,0 +1,21 @@
+/**
+ * Inserts a function argument.
+ *
+ * @param int     :p_fun_id         The ID of the the function.
+ * @param int     :p_far_ordinal    The ordinal of the argument.
+ * @param varchar :p_far_type_name  The type of the argument.
+ * @param varchar :p_far_name       The name of the argument.
+ * @param varchar :p_far_default    The default value of the argument.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_FUNCTION_ARGUMENT( fun_id
+,                                  far_ordinal
+,                                  far_type_name
+,                                  far_name
+,                                  far_default )
+values( :p_fun_id
+,       :p_far_ordinal
+,       :p_far_type_name
+,       :p_far_name
+,       :p_far_default );

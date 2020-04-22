@@ -1,0 +1,30 @@
+/**
+ * Inserts a new class|interface|trait.
+ *
+ * @param int     :p_fil_id                   The ID of the source file where the class|interface|trait is declared.
+ * @param int     :p_doc_id                   The ID of the docblock of the class.
+ * @param varchar :p_cls_name                 The name of the class|interface|trait.
+ * @param varchar :p_cls_namespace            The namespace of the class.
+ * @param varchar :p_cls_fully_qualified_name The fully qualified name of the class|interface|trait.
+ * @param int     :p_cls_line_start           The first line of the lass|interface|trait definition.
+ * @param int     :p_cls_line_end             The last line of the lass|interface|trait definition.
+ * @param blob    :p_cls_tokens               The serialized tokens of the class.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_CLASS( fil_id
+,                      doc_id
+,                      cls_name
+,                      cls_namespace
+,                      cls_fully_qualified_name
+,                      cls_line_start
+,                      cls_line_end
+,                      cls_tokens )
+values( :p_fil_id
+,       :p_doc_id
+,       :p_cls_name
+,       :p_cls_namespace
+,       :p_cls_fully_qualified_name
+,       :p_cls_line_start
+,       :p_cls_line_end
+,       :p_cls_tokens )

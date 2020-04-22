@@ -1,0 +1,17 @@
+/**
+ * Inserts a new source file.
+ *
+ * @param string :p_fil_path       The path to the source file.
+ * @param int    :p_fil_is_project If 1 the file belongs to the project to be documented.
+ * @param blob   :p_fil_contents   The source code
+ *
+ * @type lastInsertId
+ */
+insert into PAD_FILE( fil_path
+,                     fil_is_parsed
+,                     fil_is_project
+,                     fil_contents )
+values( :p_fil_path
+,       0
+,       :p_fil_is_project
+,       :p_fil_contents )

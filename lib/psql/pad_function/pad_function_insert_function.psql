@@ -1,0 +1,27 @@
+/**
+ * Inserts a function.
+ *
+ * @param int     :p_fil_id                   The ID of the source file where the function is declared.
+ * @param int     :p_doc_id                   The ID of the docblock of the function.
+ * @param varchar :p_fun_name                 The name of the function.
+ * @param varchar :p_fun_namespace            The namespace of the function.
+ * @param varchar :p_fun_fully_qualified_name The fully qualified name of the function.
+ * @param int     :p_fun_line_start           The first line of the function definition.
+ * @param int     :p_fun_line_end             The last line of the function definition.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_FUNCTION( fil_id
+,                         doc_id
+,                         fun_name
+,                         fun_namespace
+,                         fun_fully_qualified_name
+,                         fun_line_start
+,                         fun_line_end  )
+values( :p_fil_id
+,       :p_doc_id
+,       :p_fun_name
+,       :p_fun_namespace
+,       :p_fun_fully_qualified_name
+,       :p_fun_line_start
+,       :p_fun_line_end )

@@ -1,0 +1,6 @@
+/**
+ * Rebuilds the database file.
+ *
+ * @type none
+ */
+vacuum

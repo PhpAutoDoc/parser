@@ -1,0 +1,21 @@
+/**
+ * Updates the flags of a class|interface|trait.
+ *
+ * @param int :p_cls_id               The ID of the class.
+ * @param int :p_cls_is_abstract      The is abstract flag.
+ * @param int :p_cls_is_class         The is class flag.
+ * @param int :p_cls_is_final         The is final flag.
+ * @param int :p_cls_is_interface     The is interface flag.
+ * @param int :p_cls_is_trait         The is trait flag.
+ * @param int :p_cls_is_user_defined  The is user defined flag.
+ *
+ * @type none
+ */
+update PAD_CLASS
+set cls_is_abstract     = :p_cls_is_abstract
+,   cls_is_class        = :p_cls_is_class
+,   cls_is_final        = :p_cls_is_final
+,   cls_is_interface    = :p_cls_is_interface
+,   cls_is_trait        = :p_cls_is_trait
+,   cls_is_user_defined = :p_cls_is_user_defined
+where cls_id = :p_cls_id

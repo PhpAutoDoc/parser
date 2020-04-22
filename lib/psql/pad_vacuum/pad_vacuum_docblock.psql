@@ -1,0 +1,58 @@
+/**
+ * Deletes obsolete docblocks.
+ *
+ * @type none
+ */
+create temporary table TMP_DOCBLOCK
+(
+  doc_id integer primary key
+)
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_CLASS
+where doc_id is not null
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_CLASS_CONSTANT
+where doc_id is not null
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_CLASS_METHOD
+where doc_id is not null
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_CLASS_PROPERTY
+where doc_id is not null
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_CONSTANT
+where doc_id is not null
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_FILE
+where doc_id is not null
+;
+
+insert into TMP_DOCBLOCK(doc_id)
+select doc_id
+from   PAD_FUNCTION
+where doc_id is not null
+;
+
+delete from PAD_DOCBLOCK
+where doc_id not in ( select doc_id from TMP_DOCBLOCK)
+;
+
+drop table TMP_DOCBLOCK;

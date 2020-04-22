@@ -1,0 +1,20 @@
+<project name="PhpAutoDoc" default="build" basedir=".">
+
+    <target name="code-generation">
+        <exec command="bin/stratum stratum etc/stratum.ini" checkreturn="true" passthru="true"/>
+        <exec command="bin/plaisio plaisio:generate-core-event-dispatcher" checkreturn="true" passthru="true"/>
+    </target>
+
+    <!-- Runs all unit tests. -->
+    <target name="unit">
+        <exec command="bin/phpunit --bootstrap=test/bootstrap.php test" passthru="true" checkreturn="true"/>
+    </target>
+
+    <!-- Run composer update -->
+    <target name="update">
+        <exec command="composer update" checkreturn="true" passthru="true"/>
+        <phing phingfile="build.xml" target="code-generation" haltonfailure="true"/>
+    </target>
+
+    <target name="build" depends=""/>
+</project>

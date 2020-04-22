@@ -1,0 +1,8 @@
+/**
+ * Selects the DDL script and application version of the database.
+ *
+ * @type row1
+ */
+select ddl_script
+,      ddl_version
+from   PAD_DDL

@@ -1,0 +1,44 @@
+/**
+ * Inserts a parent class|interface|trait for a class|interface|trait.
+ *
+ * @param int     :p_cls_id_                   The ID of the class.
+ * @param varchar :p_par_name                 The name of the parent class|interface|trait.
+ * @param varchar :p_par_fully_qualified_name The fully qualified name of the parent class|interface|trait.
+ * @param int     :p_par_weight               The weight of the parent.
+ * @param int     :p_par_is_extending         If 1 the class|interface|trait is extending a class|interface|trait.
+ * @param int     :p_par_is_implementing      If 1 the class|interface|trait is implementing an interface.
+ * @param int     :p_par_is_using             If 1 the class|interface|trait is using a trait.
+ * @param int     :p_par_line_start           The first line of the parent definition.
+ * @param int     :p_par_line_end             The last line of the parent definition.
+ *
+ * @type none
+ */
+insert into PAD_CLASS_PARENT( cls_id
+,                             par_name
+,                             par_fully_qualified_name
+,                             par_weight
+,                             par_is_extending
+,                             par_is_implementing
+,                             par_is_using
+,                             par_line_start
+,                             par_line_end )
+values( :p_cls_id_
+,       :p_par_name
+,       :p_par_fully_qualified_name
+,       :p_par_weight
+,       :p_par_is_extending
+,       :p_par_is_implementing
+,       :p_par_is_using
+,       :p_par_line_start
+,       :p_par_line_end )
+
+
+
+
+
+
+
+
+
+
+

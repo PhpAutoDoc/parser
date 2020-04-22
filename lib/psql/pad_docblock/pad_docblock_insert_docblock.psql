@@ -1,0 +1,15 @@
+/**
+ * Inserts a new docblock.
+ *
+ * @param int  :p_doc_line_start The number of the first line of the docblock in the source file.
+ * @param int  :p_doc_line_end   The number of the last line of the docblock in the source file.
+ * @param text :p_doc_docblock   The docblock.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_DOCBLOCK( doc_line_start
+,                         doc_line_end
+,                         doc_docblock )
+values( :p_doc_line_start
+,       :p_doc_line_end
+,       :p_doc_docblock)

@@ -1,0 +1,30 @@
+/**
+ * Inserts a new constant.
+ *
+ * @param int     :p_doc_id                   The ID of the docblock of the class.
+ * @param int     :p_fil_id                   The ID of the source file where the constant is declared.
+ * @param varchar :p_con_name                 The name of the constant.
+ * @param varchar :p_con_namespace            The namespace of the constant.
+ * @param varchar :p_con_fully_qualified_name The fully qualified name of the constant.
+ * @param varchar :p_con_value                The value of the constant.
+ * @param int     :p_con_line_start           The first line of the constant declaration.
+ * @param int     :p_con_line_end             The last line of the constant declaration.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_CONSTANT( doc_id
+,                         fil_id
+,                         con_name
+,                         con_namespace
+,                         con_fully_qualified_name
+,                         con_value
+,                         con_line_start
+,                         con_line_end )
+values( :p_doc_id
+,       :p_fil_id
+,       :p_con_name
+,       :p_con_namespace
+,       :p_con_fully_qualified_name
+,       :p_con_value
+,       :p_con_line_start
+,       :p_con_line_end )
