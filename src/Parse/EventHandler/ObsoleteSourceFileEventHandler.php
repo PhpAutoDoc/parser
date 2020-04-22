@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace PhpAutoDoc\Parser\Parse\EventHandler;
 
 use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
-use PhpAutoDoc\Parser\Parse\MainParser;
+use PhpAutoDoc\Parser\PhpAutoDoc;
 
 /**
  * The main handler for a ObsoleteSourceFileEvent event.

@@ -15,7 +15,7 @@ class Tokens
   /**
    * A map from key in $tokens to ordinal (starting from 0) of tokens in $tokes.
    *
-   * @var array[int,int]
+   * @var array
    */
   private $keyOrdinalMap;
 
@@ -29,14 +29,14 @@ class Tokens
   /**
    * A map from offset in $string of a token to the corresponding key in $tokens.
    *
-   * @var array[int,int]
+   * @var array
    */
   private $offsetKeyMap;
 
   /**
    * A map from ordinal (starting from 0) to the key of tokens in $tokes.
    *
-   * @var array[int,int]
+   * @var array
    */
   private $ordinalKeyMap;
 
@@ -55,7 +55,6 @@ class Tokens
   private $tokens;
 
   //--------------------------------------------------------------------------------------------------------------------
-
   /**
    * Tokens constructor.
    *
