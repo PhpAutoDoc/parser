@@ -6,7 +6,6 @@ namespace PhpAutoDoc\Parser\Parse\EventHandler;
 use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
 use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
 use PhpAutoDoc\Parser\Parse\Event\SourceFileFoundEvent;
-use PhpAutoDoc\Parser\Parse\MainParser;
 use PhpAutoDoc\Parser\PhpAutoDoc;
 
 /**

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace PhpAutoDoc\Parser\Parse\EventHandler;
 
 use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
-use PhpAutoDoc\Parser\Parse\MainParser;
 use PhpAutoDoc\Parser\PhpAutoDoc;
 use SetBased\Helper\Cast;
 
@@ -24,8 +23,8 @@ class NewSourceFileFoundEventHandler
   public static function handle(NewSourceFileFoundEvent $event): void
   {
     PhpAutoDoc::$dl->padFileInsertFile($event->path(),
-                                               Cast::toManInt($event->isProject()),
-                                               $event->contents());
+                                       Cast::toManInt($event->isProject()),
+                                       $event->contents());
   }
 
   //--------------------------------------------------------------------------------------------------------------------

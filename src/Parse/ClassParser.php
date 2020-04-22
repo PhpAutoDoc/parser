@@ -330,17 +330,17 @@ class ClassParser
       else
       {
         $docId = PhpAutoDoc::$dl->padDocblockInsertDocblock($constant['docblock']['doc_line_start'],
-                                                                    $constant['docblock']['doc_line_end'],
-                                                                    $constant['docblock']['doc_docblock']);
+                                                            $constant['docblock']['doc_line_end'],
+                                                            $constant['docblock']['doc_docblock']);
       }
 
       PhpAutoDoc::$dl->padClassInsertConstant($this->clsId,
-                                                      $docId,
-                                                      $constant['name'],
-                                                      $constant['visibility'],
-                                                      $constant['value'],
-                                                      $constant['start'],
-                                                      $constant['end']);
+                                              $docId,
+                                              $constant['name'],
+                                              $constant['visibility'],
+                                              $constant['value'],
+                                              $constant['start'],
+                                              $constant['end']);
     }
   }
 
@@ -358,10 +358,10 @@ class ClassParser
     foreach ($arguments as $i => $argument)
     {
       PhpAutoDoc::$dl->padClassInsertMethodArgument($mthId,
-                                                            $i + 1,
-                                                            $argument['type'],
-                                                            $argument['name'],
-                                                            $argument['default']);
+                                                    $i + 1,
+                                                    $argument['type'],
+                                                    $argument['name'],
+                                                    $argument['default']);
     }
   }
 
@@ -382,21 +382,21 @@ class ClassParser
       else
       {
         $docId = PhpAutoDoc::$dl->padDocblockInsertDocblock($method['docblock']['doc_line_start'],
-                                                                    $method['docblock']['doc_line_end'],
-                                                                    $method['docblock']['doc_docblock']);
+                                                            $method['docblock']['doc_line_end'],
+                                                            $method['docblock']['doc_docblock']);
       }
 
       $mthId = PhpAutoDoc::$dl->padClassInsertMethod($this->clsId,
-                                                             $docId,
-                                                             $method['name'],
-                                                             Cast::toManInt($method['is_abstract']),
-                                                             Cast::toManInt(mb_strtolower($method['name'])=='__construct'),
-                                                             Cast::toManInt(mb_strtolower($method['name'])=='__destruct'),
-                                                             Cast::toManInt($method['is_final']),
-                                                             Cast::toManInt($method['is_static']),
-                                                             $method['visibility'],
-                                                             $method['start'],
-                                                             $method['end']);
+                                                     $docId,
+                                                     $method['name'],
+                                                     Cast::toManInt($method['is_abstract']),
+                                                     Cast::toManInt(mb_strtolower($method['name'])=='__construct'),
+                                                     Cast::toManInt(mb_strtolower($method['name'])=='__destruct'),
+                                                     Cast::toManInt($method['is_final']),
+                                                     Cast::toManInt($method['is_static']),
+                                                     $method['visibility'],
+                                                     $method['start'],
+                                                     $method['end']);
 
       $this->parseMethodArguments($mthId, $method['tokens']);
     }
@@ -432,14 +432,14 @@ class ClassParser
     if ($parent!==null)
     {
       PhpAutoDoc::$dl->padClassInsertParent($this->clsId,
-                                                    $parent['name'],
-                                                    $parent['full_name'],
-                                                    ++$weight,
-                                                    1,
-                                                    0,
-                                                    0,
-                                                    $parent['start'],
-                                                    $parent['end']);
+                                            $parent['name'],
+                                            $parent['full_name'],
+                                            ++$weight,
+                                            1,
+                                            0,
+                                            0,
+                                            $parent['start'],
+                                            $parent['end']);
     }
   }
 
@@ -457,14 +457,14 @@ class ClassParser
     foreach ($interfaces as $interface)
     {
       PhpAutoDoc::$dl->padClassInsertParent($this->clsId,
-                                                    $interface['name'],
-                                                    $interface['full_name'],
-                                                    ++$weight,
-                                                    0,
-                                                    1,
-                                                    0,
-                                                    $interface['start'],
-                                                    $interface['end']);
+                                            $interface['name'],
+                                            $interface['full_name'],
+                                            ++$weight,
+                                            0,
+                                            1,
+                                            0,
+                                            $interface['start'],
+                                            $interface['end']);
     }
   }
 
@@ -480,14 +480,14 @@ class ClassParser
     foreach ($traits as $trait)
     {
       PhpAutoDoc::$dl->padClassInsertParent($this->clsId,
-                                                    $trait['name'],
-                                                    $trait['full_name'],
-                                                    ++$weight,
-                                                    0,
-                                                    0,
-                                                    1,
-                                                    $trait['start'],
-                                                    $trait['end']);
+                                            $trait['name'],
+                                            $trait['full_name'],
+                                            ++$weight,
+                                            0,
+                                            0,
+                                            1,
+                                            $trait['start'],
+                                            $trait['end']);
     }
   }
 
@@ -508,18 +508,18 @@ class ClassParser
       else
       {
         $docId = PhpAutoDoc::$dl->padDocblockInsertDocblock($property['docblock']['doc_line_start'],
-                                                                    $property['docblock']['doc_line_end'],
-                                                                    $property['docblock']['doc_docblock']);
+                                                            $property['docblock']['doc_line_end'],
+                                                            $property['docblock']['doc_docblock']);
       }
 
       PhpAutoDoc::$dl->padClassInsertProperty($this->clsId,
-                                                      $docId,
-                                                      $property['name'],
-                                                      Cast::toManInt($property['is_static']),
-                                                      $property['visibility'],
-                                                      $property['value'],
-                                                      $property['start'],
-                                                      $property['end']);
+                                              $docId,
+                                              $property['name'],
+                                              Cast::toManInt($property['is_static']),
+                                              $property['visibility'],
+                                              $property['value'],
+                                              $property['start'],
+                                              $property['end']);
     }
   }
 
@@ -536,12 +536,12 @@ class ClassParser
     if ($n==1)
     {
       PhpAutoDoc::$dl->padClassUpdateFlag($this->clsId,
-                                                  Cast::toManInt(TokenMatchHelper::isFinal($matches)),
-                                                  Cast::toManInt(TokenMatchHelper::isClass($matches)),
-                                                  Cast::toManInt(TokenMatchHelper::isAbstract($matches)),
-                                                  Cast::toManInt(TokenMatchHelper::isInterface($matches)),
-                                                  Cast::toManInt(TokenMatchHelper::isTrait($matches)),
-                                                  1);
+                                          Cast::toManInt(TokenMatchHelper::isFinal($matches)),
+                                          Cast::toManInt(TokenMatchHelper::isClass($matches)),
+                                          Cast::toManInt(TokenMatchHelper::isAbstract($matches)),
+                                          Cast::toManInt(TokenMatchHelper::isInterface($matches)),
+                                          Cast::toManInt(TokenMatchHelper::isTrait($matches)),
+                                          1);
     }
   }
 

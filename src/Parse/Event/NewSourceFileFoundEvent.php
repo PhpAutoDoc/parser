@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace PhpAutoDoc\Parser\Parse\Event;
 
-use PhpAutoDoc\Parser\PhpAutoDoc;
-
 /**
  * Event triggered when (the main parser) has found a PHP source file.
  */

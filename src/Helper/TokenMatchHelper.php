@@ -23,7 +23,7 @@ class TokenMatchHelper
    *
    * @return string|null
    */
-  public static function code(string $name, array $match, Tokens $tokens1, Tokens $tokens2=null): ?string
+  public static function code(string $name, array $match, Tokens $tokens1, Tokens $tokens2 = null): ?string
   {
     $offset = $match[$name][1] ?? -1;
     if ($offset==-1)

@@ -318,8 +318,8 @@ class FileParser
     if ($docblock!==null)
     {
       $docId = PhpAutoDoc::$dl->padDocblockInsertDocblock($docblock['doc_line_start'],
-                                                                  $docblock['doc_line_end'],
-                                                                  $docblock['doc_docblock']);
+                                                          $docblock['doc_line_end'],
+                                                          $docblock['doc_docblock']);
       PhpAutoDoc::$dl->padFileUpdateDocblock($this->source['fil_id'], $docId);
     }
   }
@@ -341,8 +341,8 @@ class FileParser
     else
     {
       $docId = PhpAutoDoc::$dl->padDocblockInsertDocblock($item['docblock']['doc_line_start'],
-                                                                  $item['docblock']['doc_line_end'],
-                                                                  $item['docblock']['doc_docblock']);
+                                                          $item['docblock']['doc_line_end'],
+                                                          $item['docblock']['doc_docblock']);
     }
 
     return $docId;
@@ -360,13 +360,13 @@ class FileParser
     {
       $fullName = NamespaceHelper::fullyQualifiedName($this->namespace, $class['name']);
       $clsId    = PhpAutoDoc::$dl->padClassInsertClass($this->source['fil_id'],
-                                                               $this->insertDockBlock($class),
-                                                               $class['name'],
-                                                               $this->namespace,
-                                                               $fullName,
-                                                               $class['start'],
-                                                               $class['end'],
-                                                               serialize($class['tokens']));
+                                                       $this->insertDockBlock($class),
+                                                       $class['name'],
+                                                       $this->namespace,
+                                                       $fullName,
+                                                       $class['start'],
+                                                       $class['end'],
+                                                       serialize($class['tokens']));
 
       if ($this->source['fil_is_project']==1)
       {
@@ -387,13 +387,13 @@ class FileParser
     foreach ($constants as $constant)
     {
       PhpAutoDoc::$dl->padConstantInsertConstant($this->insertDockBlock($constant),
-                                                         $this->source['fil_id'],
-                                                         $constant['name'],
-                                                         $constant['namespace'],
-                                                         $constant['full_name'],
-                                                         $constant['value'],
-                                                         $constant['start'],
-                                                         $constant['end']);
+                                                 $this->source['fil_id'],
+                                                 $constant['name'],
+                                                 $constant['namespace'],
+                                                 $constant['full_name'],
+                                                 $constant['value'],
+                                                 $constant['start'],
+                                                 $constant['end']);
     }
   }
 
@@ -408,12 +408,12 @@ class FileParser
     {
       $fullName = NamespaceHelper::fullyQualifiedName($this->namespace, $function['name']);
       PhpAutoDoc::$dl->padFunctionInsertFunction($this->source['fil_id'],
-                                                         $this->insertDockBlock($function),
-                                                         $function['name'],
-                                                         $this->namespace,
-                                                         $fullName,
-                                                         $function['start'],
-                                                         $function['end']);
+                                                 $this->insertDockBlock($function),
+                                                 $function['name'],
+                                                 $this->namespace,
+                                                 $fullName,
+                                                 $function['start'],
+                                                 $function['end']);
     }
   }
 
@@ -436,13 +436,13 @@ class FileParser
     foreach ($uses as $use)
     {
       PhpAutoDoc::$dl->padUseInsertUse($this->source['fil_id'],
-                                               $use['name'],
-                                               Cast::toManInt($use['is_class']),
-                                               Cast::toManInt($use['is_function']),
-                                               Cast::toManInt($use['is_constant']),
-                                               $use['alias'],
-                                               $use['start'],
-                                               $use['end']);
+                                       $use['name'],
+                                       Cast::toManInt($use['is_class']),
+                                       Cast::toManInt($use['is_function']),
+                                       Cast::toManInt($use['is_constant']),
+                                       $use['alias'],
+                                       $use['start'],
+                                       $use['end']);
     }
   }
 
