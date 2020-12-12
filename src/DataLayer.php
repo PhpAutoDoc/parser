@@ -733,6 +733,134 @@ EOT;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * Selects all packages that are used in the project code.
+   *
+   * @return array[]
+   */
+  public function padPackagesGetAllUsedInCode(): array
+  {
+    $query = <<< EOT
+select distinct pck_vendor_name
+,               pck_project_name
+from
+(
+    select distinct pck.pck_vendor_name
+    ,               pck.pck_project_name
+    from      PAD_USE     use
+    join      PAD_FILE    fl1  on  fl1.fil_id = use.fil_id
+    join      PAD_CLASS   cls  on  cls.cls_fully_qualified_name = use.use_fully_qualified_name
+    join      PAD_FILE    fl2  on  fl2.fil_id = cls.fil_id
+    left join PAD_PACKAGE pck  on  pck.pck_id = fl2.pck_id
+    where  use.use_is_class = 1
+    and    instr(use.use_fully_qualified_name, '\') > 1
+    and    fl1.fil_is_project = 1
+    and    fl2.fil_is_project = 0
+
+    union all
+
+    select distinct pck.pck_vendor_name
+    ,               pck.pck_project_name
+    from      PAD_USE      use
+    join      PAD_FILE     fl1  on  fl1.fil_id = use.fil_id
+    join      PAD_CONSTANT con  on  con.con_fully_qualified_name = use.use_fully_qualified_name
+    join      PAD_FILE     fl2  on  fl2.fil_id = con.fil_id
+    left join PAD_PACKAGE  pck  on  pck.pck_id = fl2.pck_id
+    where  use.use_is_constant = 1
+    and    instr(use.use_fully_qualified_name, '\') > 1
+    and    fl1.fil_is_project = 1
+    and    fl2.fil_is_project = 0
+
+    union all
+
+    select distinct pck.pck_vendor_name
+    ,               pck.pck_project_name
+    from      PAD_USE      use
+    join      PAD_FILE     fl1  on  fl1.fil_id = use.fil_id
+    join      PAD_FUNCTION fun  on  fun.fun_fully_qualified_name = use.use_fully_qualified_name
+    join      PAD_FILE     fl2  on  fl2.fil_id = fun.fil_id
+    left join PAD_PACKAGE  pck  on  pck.pck_id = fl2.pck_id
+    where  use.use_is_function = 1
+    and    instr(use.use_name, '\') > 1
+    and    fl1.fil_is_project = 1
+    and    fl2.fil_is_project = 0
+) t
+order by pck_vendor_name
+,        pck_project_name
+EOT;
+    $query = str_repeat(PHP_EOL, 5).$query;
+
+    return $this->executeRows($query);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Selects all files that are using a package.
+   *
+   * @param int|null $pPckId The ID of the package.
+   *
+   * @return array[]
+   */
+  public function padPackagesGetUsages(?int $pPckId): array
+  {
+    $replace = [':p_pck_id' => $this->quoteInt($pPckId)];
+    $query   = <<< EOT
+select fil_path
+,      min(use_line_start) use_line_start
+from
+(
+    select fl1.fil_path
+    ,      use.use_line_start
+    from      PAD_USE     use
+    join      PAD_FILE    fl1  on  fl1.fil_id = use.fil_id
+    join      PAD_CLASS   cls  on  cls.cls_fully_qualified_name = use.use_fully_qualified_name
+    join      PAD_FILE    fl2  on  fl2.fil_id = cls.fil_id
+    left join PAD_PACKAGE pck  on  pck.pck_id = fl2.pck_id
+    where  use.use_is_class = 1
+    and    instr(use.use_fully_qualified_name, '\') > 1
+    and    fl1.fil_is_project = 1
+    and    fl2.fil_is_project = 0
+    and    pck.pck_id         = :p_pck_id
+
+    union all
+
+    select fl1.fil_path
+    ,      use.use_line_start
+    from      PAD_USE      use
+    join      PAD_FILE     fl1  on  fl1.fil_id = use.fil_id
+    join      PAD_CONSTANT con  on  con.con_fully_qualified_name = use.use_fully_qualified_name
+    join      PAD_FILE     fl2  on  fl2.fil_id = con.fil_id
+    left join PAD_PACKAGE  pck  on  pck.pck_id = fl2.pck_id
+    where  use.use_is_constant = 1
+    and    instr(use.use_fully_qualified_name, '\') > 1
+    and    fl1.fil_is_project = 1
+    and    fl2.fil_is_project = 0
+    and    pck.pck_id         = :p_pck_id
+
+    union all
+
+    select fl1.fil_path
+    ,      use.use_line_start
+    from      PAD_USE      use
+    join      PAD_FILE     fl1  on  fl1.fil_id = use.fil_id
+    join      PAD_FUNCTION fun  on  fun.fun_fully_qualified_name = use.use_fully_qualified_name
+    join      PAD_FILE     fl2  on  fl2.fil_id = fun.fil_id
+    left join PAD_PACKAGE  pck  on  pck.pck_id = fl2.pck_id
+    where  use.use_is_function = 1
+    and    instr(use.use_name, '\') > 1
+    and    fl1.fil_is_project = 1
+    and    fl2.fil_is_project = 0
+    and    pck.pck_id         = :p_pck_id
+) t
+group by fil_path
+order by fil_path
+EOT;
+    $query = str_repeat(PHP_EOL, 7).$query;
+
+    return $this->executeRows($query, $replace);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
    * Inserts a use.
    *
    * @param int|null    $pFilId                 The ID of the source file.

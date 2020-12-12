@@ -1,4 +1,7 @@
 <commands>
+    <command name="php-auto-doc:package-implicit">\PhpAutoDoc\Parser\Command\PackageImplicitCommand</command>
+    <command name="php-auto-doc:package-obsolete">\PhpAutoDoc\Parser\Command\PackageObsoleteCommand</command>
+    <command name="php-auto-doc:package-usage">\PhpAutoDoc\Parser\Command\PackageUsageCommand</command>
     <command name="php-auto-doc:parse">\PhpAutoDoc\Parser\Command\ParseCommand</command>
     <command name="php-auto-doc:vacuum">\PhpAutoDoc\Parser\Command\VacuumCommand</command>
 </commands>

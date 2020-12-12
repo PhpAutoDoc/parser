@@ -2,6 +2,7 @@
   "name": "phpautodoc/parser",
   "require": {
     "php": ">=7.3.0",
+    "ext-json": "*",
     "setbased/error-handler": "^1.2.0",
     "setbased/php-stratum": "^6.1.0",
     "setbased/php-stratum-common": "^6.2.0",
