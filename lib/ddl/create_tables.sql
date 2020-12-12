@@ -23,6 +23,7 @@ create table PAD_FILE
   fil_path         varchar not null,
   fil_is_parsed    integer not null,
   fil_is_project   integer not null,
+  fil_is_seen      integer not null default 1,
   fil_contents     blob not null,
   foreign key (doc_id) references PAD_DOCBLOCK(doc_id)
 );

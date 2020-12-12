@@ -1,0 +1,7 @@
+/**
+ * Marks all file as unseen.
+ *
+ * @type none
+ */
+update PAD_FILE
+set    fil_is_seen = 0

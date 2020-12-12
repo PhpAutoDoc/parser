@@ -1,0 +1,7 @@
+/**
+ * Deletes an unseen files.
+ *
+ * @type none
+ */
+delete from PAD_FILE
+where fil_is_seen = 0

@@ -40,7 +40,7 @@ class FileStoreObserver
       }
       else
       {
-        PhpAutoDoc::$dl->padFileUpdateIsParsed($row['fil_id']);
+        PhpAutoDoc::$dl->padFileUpdateIsSeen($row['fil_id']);
       }
     }
   }

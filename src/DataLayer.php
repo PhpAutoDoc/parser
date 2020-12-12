@@ -405,6 +405,21 @@ EOT;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * Deletes an unseen files.
+   */
+  public function padFileDeleteAllUnseen(): void
+  {
+    $query = <<< EOT
+delete from PAD_FILE
+where fil_is_seen = 0
+EOT;
+    $query = str_repeat(PHP_EOL, 5).$query;
+
+    $this->executeNone($query);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
    * Deletes an obsolete source file.
    *
    * @param int|null $pFilId The ID of the source file.
@@ -499,6 +514,21 @@ EOT;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * Marks all file as unseen.
+   */
+  public function padFileUpdateAllUnseen(): void
+  {
+    $query = <<< EOT
+update PAD_FILE
+set    fil_is_seen = 0
+EOT;
+    $query = str_repeat(PHP_EOL, 5).$query;
+
+    $this->executeNone($query);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
    * Updates the docblock of a source file.
    *
    * @param int|null $pFilId The ID of the source file.
@@ -529,6 +559,25 @@ EOT;
     $query   = <<< EOT
 update PAD_FILE
 set    fil_is_parsed = 1
+where  fil_id = :p_fil_id
+EOT;
+    $query = str_repeat(PHP_EOL, 7).$query;
+
+    $this->executeNone($query, $replace);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Marks a file as been seen.
+   *
+   * @param int|null $pFilId The ID of the source file.
+   */
+  public function padFileUpdateIsSeen(?int $pFilId): void
+  {
+    $replace = [':p_fil_id' => $this->quoteInt($pFilId)];
+    $query   = <<< EOT
+update PAD_FILE
+set    fil_is_seen = 1
 where  fil_id = :p_fil_id
 EOT;
     $query = str_repeat(PHP_EOL, 7).$query;

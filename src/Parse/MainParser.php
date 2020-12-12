@@ -32,6 +32,7 @@ class MainParser
   private $projectSources;
 
   //--------------------------------------------------------------------------------------------------------------------
+
   /**
    * Object constructor.
    *
@@ -54,12 +55,24 @@ class MainParser
    */
   public function parse(): int
   {
+    $this->prepare();
     $this->findExternalSources();
     $this->findProjectSources();
 
     PhpAutoDoc::$eventDispatcher->dispatch();
 
+    $this->aftercare();
+
     return 0;
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Performance aftercare.
+   */
+  private function aftercare()
+  {
+    PhpAutoDoc::$dl->padFileDeleteAllUnseen();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -91,6 +104,15 @@ class MainParser
     {
       PhpAutoDoc::$eventDispatcher->notify(new SourceFileFoundEvent($path, true));
     }
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Performs preparations.
+   */
+  private function prepare(): void
+  {
+    PhpAutoDoc::$dl->padFileUpdateAllUnseen();
   }
 
   //--------------------------------------------------------------------------------------------------------------------
