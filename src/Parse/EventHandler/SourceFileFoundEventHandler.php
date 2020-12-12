@@ -7,6 +7,7 @@ use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
 use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
 use PhpAutoDoc\Parser\Parse\Event\SourceFileFoundEvent;
 use PhpAutoDoc\Parser\PhpAutoDoc;
+use Plaisio\PlaisioInterface;
 
 /**
  * The main handler for a SourceFileFoundEvent event.
@@ -17,9 +18,10 @@ class SourceFileFoundEventHandler
   /**
    * Handles an event.
    *
-   * @param SourceFileFoundEvent $event The event.
+   * @param PlaisioInterface     $object The parent Plaisio object.
+   * @param SourceFileFoundEvent $event  The event.
    */
-  public static function handle(SourceFileFoundEvent $event): void
+  public static function handle(PlaisioInterface $object, SourceFileFoundEvent $event): void
   {
     $path   = $event->path();
     $source = file_get_contents($path);

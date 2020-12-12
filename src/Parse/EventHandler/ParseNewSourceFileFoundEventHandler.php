@@ -6,6 +6,7 @@ namespace PhpAutoDoc\Parser\Parse\EventHandler;
 use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
 use PhpAutoDoc\Parser\Parse\FileParser;
 use PhpAutoDoc\Parser\PhpAutoDoc;
+use Plaisio\PlaisioInterface;
 
 /**
  * Parses a source file.
@@ -16,9 +17,10 @@ class ParseNewSourceFileFoundEventHandler
   /**
    * Handles an event.
    *
-   * @param NewSourceFileFoundEvent $event The event.
+   * @param PlaisioInterface        $object The parent Plaisio object.
+   * @param NewSourceFileFoundEvent $event  The event.
    */
-  public static function handle(NewSourceFileFoundEvent $event): void
+  public static function handle(PlaisioInterface $object, NewSourceFileFoundEvent $event): void
   {
     PhpAutoDoc::$io->text(sprintf('Parsing source file <fso>%s</fso>', $event->path()));
 

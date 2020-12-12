@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace PhpAutoDoc\Parser\Command;
 
-use Composer\IO\ConsoleIO;
 use PhpAutoDoc\Parser\DataLayer;
 use PhpAutoDoc\Parser\PhpAutoDoc;
 use PhpAutoDoc\Parser\Plaisio\AutoDocEventDispatcher;
+use PhpAutoDoc\Parser\Plaisio\CliKernel;
 use Plaisio\Console\Style\PlaisioStyle;
 use SetBased\Stratum\Middle\Exception\ResultException;
 use Symfony\Component\Console\Command\Command;
@@ -19,13 +19,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class PhpAutoDocCommand extends Command
 {
   //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * The Console IO object.
-   *
-   * @var ConsoleIO
-   */
-  protected $consoleIo;
-
   /**
    * The data layer.
    *
@@ -49,11 +42,10 @@ abstract class PhpAutoDocCommand extends Command
    */
   protected function initialize(InputInterface $input, OutputInterface $output)
   {
-    $this->io        = new PlaisioStyle($input, $output);
-    $this->consoleIo = new ConsoleIO($input, $output, $this->getHelperSet());
+    $this->io = new PlaisioStyle($input, $output);
 
     PhpAutoDoc::$io              = $this->io;
-    PhpAutoDoc::$eventDispatcher = new AutoDocEventDispatcher();
+    PhpAutoDoc::$eventDispatcher = new AutoDocEventDispatcher(new CliKernel());
 
     ini_set('memory_limit', '-1');
   }

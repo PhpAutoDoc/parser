@@ -3,6 +3,15 @@ declare(strict_types=1);
 
 namespace PhpAutoDoc\Parser\Plaisio;
 
+use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
+use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
+use PhpAutoDoc\Parser\Parse\Event\ProjectClassFoundEvent;
+use PhpAutoDoc\Parser\Parse\Event\SourceFileFoundEvent;
+use PhpAutoDoc\Parser\Parse\EventHandler\NewSourceFileFoundEventHandler;
+use PhpAutoDoc\Parser\Parse\EventHandler\ObsoleteSourceFileEventHandler;
+use PhpAutoDoc\Parser\Parse\EventHandler\ParseNewSourceFileFoundEventHandler;
+use PhpAutoDoc\Parser\Parse\EventHandler\ProjectClassFoundEventHandler;
+use PhpAutoDoc\Parser\Parse\EventHandler\SourceFileFoundEventHandler;
 use Plaisio\Event\CoreEventDispatcher;
 
 /**
@@ -16,19 +25,14 @@ class AutoDocEventDispatcher extends CoreEventDispatcher
    */
   protected static $notifyHandlers =
     [
-      'PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent' => [['PhpAutoDoc\Parser\Parse\EventHandler\NewSourceFileFoundEventHandler::handle',
-                                                                   null],
-                                                                  ['PhpAutoDoc\Parser\Parse\EventHandler\ParseNewSourceFileFoundEventHandler::handle',
-                                                                   null]],
+      NewSourceFileFoundEvent::class => [[[NewSourceFileFoundEventHandler::class, 'handle'], null],
+                                         [[ParseNewSourceFileFoundEventHandler::class, 'handle'], null]],
 
-      'PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent' => [['PhpAutoDoc\Parser\Parse\EventHandler\ObsoleteSourceFileEventHandler::handle',
-                                                                   null]],
+      ObsoleteSourceFileEvent::class => [[[ObsoleteSourceFileEventHandler::class, 'handle'], null]],
 
-      'PhpAutoDoc\Parser\Parse\Event\ProjectClassFoundEvent' => [['PhpAutoDoc\Parser\Parse\EventHandler\ProjectClassFoundEventHandler::handle',
-                                                                  null]],
+      ProjectClassFoundEvent::class => [[[ProjectClassFoundEventHandler::class, 'handle'], null]],
 
-      'PhpAutoDoc\Parser\Parse\Event\SourceFileFoundEvent' => [['PhpAutoDoc\Parser\Parse\EventHandler\SourceFileFoundEventHandler::handle',
-                                                                null]]
+      SourceFileFoundEvent::class => [[[SourceFileFoundEventHandler::class, 'handle'], null]]
     ];
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -5,6 +5,7 @@ namespace PhpAutoDoc\Parser\Parse\EventHandler;
 
 use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
 use PhpAutoDoc\Parser\PhpAutoDoc;
+use Plaisio\PlaisioInterface;
 
 /**
  * The main handler for a ObsoleteSourceFileEvent event.
@@ -17,9 +18,10 @@ class ObsoleteSourceFileEventHandler
   /**
    * Handles an event.
    *
-   * @param ObsoleteSourceFileEvent $event The event.
+   * @param PlaisioInterface        $object The parent Plaisio object.
+   * @param ObsoleteSourceFileEvent $event  The event.
    */
-  public static function handle(ObsoleteSourceFileEvent $event): void
+  public static function handle(PlaisioInterface $object, ObsoleteSourceFileEvent $event): void
   {
     PhpAutoDoc::$dl->padFileDeleteFile($event->filId());
   }

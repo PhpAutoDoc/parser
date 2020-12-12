@@ -5,6 +5,7 @@ namespace PhpAutoDoc\Parser\Parse\EventHandler;
 
 use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
 use PhpAutoDoc\Parser\PhpAutoDoc;
+use Plaisio\PlaisioInterface;
 use SetBased\Helper\Cast;
 
 /**
@@ -18,9 +19,10 @@ class NewSourceFileFoundEventHandler
   /**
    * Handles an event.
    *
-   * @param NewSourceFileFoundEvent $event The event.
+   * @param PlaisioInterface        $object The parent Plaisio object.
+   * @param NewSourceFileFoundEvent $event  The event.
    */
-  public static function handle(NewSourceFileFoundEvent $event): void
+  public static function handle(PlaisioInterface $object, NewSourceFileFoundEvent $event): void
   {
     PhpAutoDoc::$dl->padFileInsertFile($event->path(),
                                        Cast::toManInt($event->isProject()),

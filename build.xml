@@ -1,4 +1,22 @@
 <project name="PhpAutoDoc" default="build" basedir=".">
+    <!-- Update dependencies -->
+    <target name="update">
+        <!-- Update PHP packages -->
+        <exec executable="composer" checkreturn="true" passthru="true">
+            <arg value="--ansi"/>
+            <arg value="update"/>
+        </exec>
+
+        <!-- generate automatically generated code -->
+        <phing phingfile="build.xml" target="code-generation" haltonfailure="true"/>
+
+        <!-- Show outdated packages -->
+        <exec executable="composer" checkreturn="true" passthru="true">
+            <arg value="--ansi"/>
+            <arg value="outdated"/>
+            <arg value="--direct"/>
+        </exec>
+    </target>
 
     <target name="code-generation">
         <exec command="bin/stratum stratum etc/stratum.ini" checkreturn="true" passthru="true"/>
@@ -8,12 +26,6 @@
     <!-- Runs all unit tests. -->
     <target name="unit">
         <exec command="bin/phpunit --bootstrap=test/bootstrap.php test" passthru="true" checkreturn="true"/>
-    </target>
-
-    <!-- Run composer update -->
-    <target name="update">
-        <exec command="composer update" checkreturn="true" passthru="true"/>
-        <phing phingfile="build.xml" target="code-generation" haltonfailure="true"/>
     </target>
 
     <target name="build" depends=""/>

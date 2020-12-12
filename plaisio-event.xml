@@ -1,0 +1,13 @@
+<event>
+    <dispatcher>
+        <class>PhpAutoDoc\Parser\Plaisio\AutoDocEventDispatcher</class>
+        <path>src/Plaisio/AutoDocEventDispatcher.php</path>
+    </dispatcher>
+    <notify>
+        <handler>\PhpAutoDoc\Parser\Parse\EventHandler\SourceFileFoundEventHandler::handle</handler>
+        <handler>\PhpAutoDoc\Parser\Parse\EventHandler\NewSourceFileFoundEventHandler::handle</handler>
+        <handler>\PhpAutoDoc\Parser\Parse\EventHandler\ObsoleteSourceFileEventHandler::handle</handler>
+        <handler>\PhpAutoDoc\Parser\Parse\EventHandler\ParseNewSourceFileFoundEventHandler::handle</handler>
+        <handler>\PhpAutoDoc\Parser\Parse\EventHandler\ProjectClassFoundEventHandler::handle</handler>
+    </notify>
+</event>
