@@ -20,21 +20,21 @@ class FileParser
    *
    * @var string|null
    */
-  private $namespace;
+  private ?string $namespace;
 
   /**
    * The details of the source file.
    *
    * @var array
    */
-  private $source;
+  private array $source;
 
   /**
    * The token helper object.
    *
    * @var Tokens
    */
-  private $tokens;
+  private Tokens $tokens;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
@@ -337,7 +337,7 @@ class FileParser
    *
    * @return int|null The ID of the docblock.
    */
-  private function insertDockBlock(array $item)
+  private function insertDockBlock(array $item): ?int
   {
     if ($item['docblock']===null)
     {

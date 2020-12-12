@@ -5,7 +5,6 @@ namespace PhpAutoDoc\Parser\Parse\Observer;
 
 use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
 use PhpAutoDoc\Parser\Parse\FileParser;
-use PhpAutoDoc\Parser\PhpAutoDoc;
 use Plaisio\PlaisioInterface;
 
 /**

@@ -13,46 +13,46 @@ class Tokens
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * The tokens.
+   *
+   * @var array
+   */
+  protected array $tokens;
+
+  /**
    * A map from key in $tokens to ordinal (starting from 0) of tokens in $tokes.
    *
    * @var array
    */
-  private $keyOrdinalMap;
+  private array $keyOrdinalMap;
 
   /**
    * The start and last line of each token.
    *
    * @var array[]
    */
-  private $lines;
+  private array $lines = [];
 
   /**
    * A map from offset in $string of a token to the corresponding key in $tokens.
    *
    * @var array
    */
-  private $offsetKeyMap;
+  private array $offsetKeyMap;
 
   /**
    * A map from ordinal (starting from 0) to the key of tokens in $tokes.
    *
    * @var array
    */
-  private $ordinalKeyMap;
+  private array $ordinalKeyMap;
 
   /**
    * The tokens as a string ignoring T_WHITESPACE and T_COMMENT tokens.
    *
    * @var string
    */
-  private $string;
-
-  /**
-   * The tokens.
-   *
-   * @var array
-   */
-  private $tokens;
+  private string $string;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
@@ -368,9 +368,6 @@ class Tokens
         return $key;
       }
     }
-
-    // Not reached.
-    return -1;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -540,7 +537,7 @@ class Tokens
    */
   private function stringify(): void
   {
-    $this->string       = '';
+    $string             = '';
     $this->offsetKeyMap = [];
     foreach ($this->tokens as $key => $token)
     {
@@ -550,16 +547,19 @@ class Tokens
         {
           // We must use strlen (which return the length in bytes) and not mb_strlen because PCRE option
           // PREG_OFFSET_CAPTURE will return the offset in bytes too.
-          $this->offsetKeyMap[strlen($this->string)] = $key;
-          $this->string                              .= token_name($token[0]).' ';
+          $this->offsetKeyMap[strlen($string)] = $key;
+          $string                              .= token_name($token[0]).' ';
         }
       }
       else
       {
-        $this->offsetKeyMap[strlen($this->string)] = $key;
-        $this->string                              .= $token.' ';
+        $this->offsetKeyMap[strlen($string)] = $key;
+        $string                              .= $token.' ';
       }
     }
+
+    // We use a local variable instead of the property directly to mitigate a serious performs penalty.
+    $this->string = $string;
   }
 
   //--------------------------------------------------------------------------------------------------------------------

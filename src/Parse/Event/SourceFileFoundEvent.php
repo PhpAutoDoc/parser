@@ -14,14 +14,14 @@ class SourceFileFoundEvent
    *
    * @var bool
    */
-  private $isProject;
+  private bool $isProject;
 
   /**
    * The path to the source file.
    *
    * @var string
    */
-  private $path;
+  private string $path;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**

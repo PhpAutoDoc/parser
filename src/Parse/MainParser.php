@@ -17,19 +17,19 @@ class MainParser
   /**
    * @var string
    */
-  private $externalSources;
+  private string $externalSources;
 
   /**
    * The options.
    *
    * @var array
    */
-  private $options;
+  private array $options;
 
   /**
    * @var string
    */
-  private $projectSources;
+  private string $projectSources;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**

@@ -19,21 +19,21 @@ class ClassParser
    *
    * @var int
    */
-  private $clsId;
+  private int $clsId;
 
   /**
    * The basic details of a class.
    *
    * @var array
    */
-  private $details;
+  private array $details;
 
   /**
    * The tokens of the PHP code of the class.
    *
    * @var Tokens
    */
-  private $tokens;
+  private /* Tokens */ $tokens;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**

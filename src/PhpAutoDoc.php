@@ -17,21 +17,21 @@ class PhpAutoDoc
    *
    * @var DataLayer
    */
-  public static $dl;
+  public static DataLayer $dl;
 
   /**
    * The event dispatcher.
    *
    * @var EventDispatcher
    */
-  public static $eventDispatcher;
+  public static EventDispatcher $eventDispatcher;
 
   /**
    * The output decorator.
    *
    * @var PlaisioStyle
    */
-  public static $io;
+  public static PlaisioStyle $io;
 
   //--------------------------------------------------------------------------------------------------------------------
 }

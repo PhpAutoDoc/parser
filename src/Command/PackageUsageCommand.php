@@ -98,24 +98,6 @@ class PackageUsageCommand extends PhpAutoDocCommand
   }
 
   //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Fetches used packages found in code.
-   *
-   * @return array
-   */
-  private function fetchUsedPackages(): array
-  {
-    $packages = [];
-    $rows     = PhpAutoDoc::$dl->padPackagesGetAllUsedInCode();
-    foreach ($rows as $row)
-    {
-      $packages[] = $row['pck_vendor_name'].'/'.$row['pck_project_name'];
-    }
-
-    return $packages;
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
 }
 
 //----------------------------------------------------------------------------------------------------------------------

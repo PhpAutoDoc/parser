@@ -16,10 +16,10 @@ class TokenMatchHelper
   /**
    * Returns the code of a named subpattern.
    *
-   * @param string $name    The name of the subpattern.
-   * @param array  $match   A match from preg_match() or preg_match_all().
-   * @param Tokens $tokens1 The tokens on which the regular expression was executed.
-   * @param Tokens $tokens2 The original tokens. If null $tokens1 will be used.
+   * @param string      $name    The name of the subpattern.
+   * @param array       $match   A match from preg_match() or preg_match_all().
+   * @param Tokens      $tokens1 The tokens on which the regular expression was executed.
+   * @param Tokens|null $tokens2 The original tokens. If null $tokens1 will be used.
    *
    * @return string|null
    */

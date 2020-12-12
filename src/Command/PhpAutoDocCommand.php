@@ -24,14 +24,14 @@ abstract class PhpAutoDocCommand extends Command
    *
    * @var DataLayer
    */
-  protected $dl;
+  protected DataLayer $dl;
 
   /**
    * The output decorator.
    *
    * @var PlaisioStyle
    */
-  protected $io;
+  protected PlaisioStyle $io;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
