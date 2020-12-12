@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PhpAutoDoc\Parser\Command;
 
 use PhpAutoDoc\Parser\PhpAutoDoc;
+use SetBased\Helper\Cast;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -30,7 +31,7 @@ class PackageImplicitCommand extends PhpAutoDocCommand
    */
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
-    $this->openDataLayer($input->getArgument('store'));
+    $this->openDataLayer(Cast::toManString($input->getArgument('store')));
 
     $packagesUsed     = $this->fetchUsedPackages();
     $packagesRequired = $this->fetchRequiredPackages();

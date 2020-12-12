@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PhpAutoDoc\Parser\Command;
 
 use PhpAutoDoc\Parser\Parse\MainParser;
+use SetBased\Helper\Cast;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -45,7 +46,7 @@ class ParseCommand extends PhpAutoDocCommand
   {
     $this->io->title('Parse');
 
-    $this->openDataLayer($input->getArgument('store'));
+    $this->openDataLayer(Cast::toManString($input->getArgument('store')));
 
     $parser = new MainParser($input->getArgument('external-sources'),
                              $input->getArgument('project-sources'),

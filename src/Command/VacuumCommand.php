@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PhpAutoDoc\Parser\Command;
 
+use SetBased\Helper\Cast;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,12 +33,12 @@ class VacuumCommand extends PhpAutoDocCommand
   {
     $this->io->title('Vacuum');
 
-    $store = $input->getArgument('store');
+    $store = Cast::toManString($input->getArgument('store'));
 
     $size1 = filesize($store);
     $this->io->text(sprintf('Initial size: %s', Helper::formatMemory($size1)));
 
-    $this->openDataLayer($input->getArgument('store'));
+    $this->openDataLayer(Cast::toManString($input->getArgument('store')));
     $this->dl->executeNone('pragma foreign_keys = on');
     $this->dl->padVacuumDeleteTokens();
     $this->dl->padVacuumDocblock();
