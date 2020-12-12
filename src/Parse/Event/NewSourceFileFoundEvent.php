@@ -6,43 +6,38 @@ namespace PhpAutoDoc\Parser\Parse\Event;
 /**
  * Event triggered when (the main parser) has found a PHP source file.
  */
-class NewSourceFileFoundEvent extends SourceFileFoundEvent
+class NewSourceFileFoundEvent
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * The source code.
+   * The ID of the source file.
    *
-   * @var string
+   * @var int
    */
-  private $contents;
+  private $filId;
 
   //--------------------------------------------------------------------------------------------------------------------
+
   /**
    * Object constructor.
    *
-   * @param string $path      The path to the source file.
-   * @param bool   $isProject True if and only if the source does belong to the project.
-   * @param string $contents  The source code.
+   * @param int $filId The ID of the source file.
    */
-  public function __construct(string $path, bool $isProject, string $contents)
+  public function __construct(int $filId)
   {
-    parent::__construct($path, $isProject);
-
-    $this->contents = $contents;
+    $this->filId = $filId;
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Returns the source code.
+   * Return the ID of the source file.
    *
-   * @return string
+   * @return int
    */
-  public function contents(): string
+  public function getFilId(): int
   {
-    return $this->contents;
+    return $this->filId;
   }
-
-  //--------------------------------------------------------------------------------------------------------------------
 }
 
 //----------------------------------------------------------------------------------------------------------------------

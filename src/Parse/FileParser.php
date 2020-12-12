@@ -5,7 +5,7 @@ namespace PhpAutoDoc\Parser\Parse;
 
 use PhpAutoDoc\Parser\Helper\NamespaceHelper;
 use PhpAutoDoc\Parser\Helper\TokenMatchHelper;
-use PhpAutoDoc\Parser\Parse\Event\ProjectClassFoundEvent;
+use PhpAutoDoc\Parser\Parse\Event\ClassFoundEvent;
 use PhpAutoDoc\Parser\PhpAutoDoc;
 use SetBased\Helper\Cast;
 
@@ -63,7 +63,7 @@ class FileParser
     $this->parseClasses();
     $this->parseFunctions();
 
-    PhpAutoDoc::$dl->padFileMarkProcessed($this->source['fil_id']);
+    PhpAutoDoc::$dl->padFileUpdateIsParsed($this->source['fil_id']);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
@@ -370,7 +370,7 @@ class FileParser
 
       if ($this->source['fil_is_project']==1)
       {
-        PhpAutoDoc::$eventDispatcher->notify(new ProjectClassFoundEvent($clsId));
+        PhpAutoDoc::$eventDispatcher->notify(new ClassFoundEvent($clsId));
       }
     }
   }

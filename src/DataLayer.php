@@ -423,29 +423,6 @@ EOT;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Selects a source file given a path to a file.
-   *
-   * @param string|null $pFilPath The path to the source file.
-   *
-   * @return array
-   */
-  public function padFileGetByPath(?string $pFilPath): array
-  {
-    $replace = [':p_fil_path' => $this->quoteVarchar($pFilPath)];
-    $query   = <<< EOT
-select fil_id
-,      fil_is_parsed
-,      fil_contents
-from   PAD_FILE
-where  fil_path = :p_fil_path
-EOT;
-    $query = str_repeat(PHP_EOL, 7).$query;
-
-    return $this->executeRow1($query, $replace);
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
    * Selects a source file given the ID of the file.
    *
    * @param int|null $pFilId The ID of the source file.
@@ -496,25 +473,6 @@ EOT;
 
     $this->executeNone($query, $replace);
     return $this->lastInsertId();
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------
-  /**
-   * Marks a source file as been processed.
-   *
-   * @param int|null $pFilId The ID of the source file.
-   */
-  public function padFileMarkProcessed(?int $pFilId): void
-  {
-    $replace = [':p_fil_id' => $this->quoteInt($pFilId)];
-    $query   = <<< EOT
-update PAD_FILE
-set    fil_is_parsed = 1
-where  fil_id = :p_fil_id
-EOT;
-    $query = str_repeat(PHP_EOL, 7).$query;
-
-    $this->executeNone($query, $replace);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -1,29 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace PhpAutoDoc\Parser\Parse\EventHandler;
+namespace PhpAutoDoc\Parser\Parse\Observer;
 
-use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
+use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
+use PhpAutoDoc\Parser\Parse\FileParser;
 use PhpAutoDoc\Parser\PhpAutoDoc;
 use Plaisio\PlaisioInterface;
 
 /**
- * The main handler for a ObsoleteSourceFileEvent event.
- *
- * This handler delete a row from PAD_FILE. All other handlers must come before this handler.
+ * Observer for parsing source files.
  */
-class ObsoleteSourceFileEventHandler
+class FileParserObserver
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Handles an event.
+   * Handles a NewSourceFileFoundEvent event.
    *
    * @param PlaisioInterface        $object The parent Plaisio object.
-   * @param ObsoleteSourceFileEvent $event  The event.
+   * @param NewSourceFileFoundEvent $event  The event.
    */
-  public static function handle(PlaisioInterface $object, ObsoleteSourceFileEvent $event): void
+  public static function handleNewSourceFileFoundEvent(PlaisioInterface $object, NewSourceFileFoundEvent $event): void
   {
-    PhpAutoDoc::$dl->padFileDeleteFile($event->filId());
+    $parser = new FileParser($event->getFilId());
+    $parser->parse();
   }
 
   //--------------------------------------------------------------------------------------------------------------------

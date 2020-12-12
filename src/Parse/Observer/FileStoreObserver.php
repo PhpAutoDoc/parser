@@ -1,33 +1,32 @@
 <?php
 declare(strict_types=1);
 
-namespace PhpAutoDoc\Parser\Parse\EventHandler;
+namespace PhpAutoDoc\Parser\Parse\Observer;
 
 use PhpAutoDoc\Parser\Parse\Event\NewSourceFileFoundEvent;
-use PhpAutoDoc\Parser\Parse\Event\ObsoleteSourceFileEvent;
 use PhpAutoDoc\Parser\Parse\Event\SourceFileFoundEvent;
 use PhpAutoDoc\Parser\PhpAutoDoc;
 use Plaisio\PlaisioInterface;
+use SetBased\Helper\Cast;
 
 /**
- * The main handler for a SourceFileFoundEvent event.
+ * Observer for maintaining files in the store.
  */
-class SourceFileFoundEventHandler
+class FileStoreObserver
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Handles an event.
+   * Handles a SourceFileFoundEvent event.
    *
    * @param PlaisioInterface     $object The parent Plaisio object.
    * @param SourceFileFoundEvent $event  The event.
    */
-  public static function handle(PlaisioInterface $object, SourceFileFoundEvent $event): void
+  public static function handleSourceFileFoundEvent(PlaisioInterface $object, SourceFileFoundEvent $event): void
   {
     $path   = $event->path();
     $source = file_get_contents($path);
 
     $row = PhpAutoDoc::$dl->padFileSearchByPath($path);
-
     if ($row===null)
     {
       self::newSource($path, $event->isProject(), $source);
@@ -58,19 +57,23 @@ class SourceFileFoundEventHandler
   {
     if (trim($contents)!=='')
     {
-      PhpAutoDoc::$eventDispatcher->notify(new NewSourceFileFoundEvent($path, $isProject, $contents));
+      $filId = PhpAutoDoc::$dl->padFileInsertFile($path,
+                                                  Cast::toManInt($isProject),
+                                                  $contents);
+
+      PhpAutoDoc::$eventDispatcher->notify(new NewSourceFileFoundEvent($filId));
     }
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Triggers a ObsoleteSourceFileEvent event.
+   * Deletes an obsolete source file.
    *
    * @param int $filId The ID of the obsolete source file.
    */
   private static function obsoleteSource(int $filId): void
   {
-    PhpAutoDoc::$eventDispatcher->notify(new ObsoleteSourceFileEvent($filId));
+    PhpAutoDoc::$dl->padFileDeleteFile($filId);
   }
 
   //--------------------------------------------------------------------------------------------------------------------

@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace PhpAutoDoc\Parser\Parse\Event;
 
 /**
- * Event triggered when a class|interface|trait that belongs to the project to be documented has been found.
+ * Event triggered when a class|interface|trait has been found.
  */
-class ProjectClassFoundEvent
+class ClassFoundEvent
 {
   //--------------------------------------------------------------------------------------------------------------------
   /**
