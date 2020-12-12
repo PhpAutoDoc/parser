@@ -38,7 +38,7 @@ class NamespaceHelper
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Splist a fully qualified name into an array with 3 elements namespace, name, and fully qualified name.
+   * Splits a fully qualified name into an array with 3 elements namespace, name, and fully qualified name.
    *
    * @param string $name The fully qualified name.
    *

@@ -1,19 +1,23 @@
 /**
  * Inserts a use.
  *
- * @param int    :p_fil_id          The ID of the source file.
- * @param string :p_use_name        The fully qualified.
- * @param int    :p_use_is_class    The alias/import is a class.
- * @param int    :p_use_is_function The alias/import is a function.
- * @param int    :p_use_is_constant The alias/import is a constant.
- * @param string :p_use_alias       The alias.
- * @param int    :p_use_line_start  The first line of the use statement.
- * @param int    :p_use_line_end    The last line of the use statement.
+ * @param int    :p_fil_id                   The ID of the source file.
+ * @param string :p_use_name                 The name of the item
+ * @param string :p_use_namespace            The The namespace where the item lives.
+ * @param string :p_use_fully_qualified_name The fully qualified name of the item.
+ * @param int    :p_use_is_class             The alias/import is a class.
+ * @param int    :p_use_is_function          The alias/import is a function.
+ * @param int    :p_use_is_constant          The alias/import is a constant.
+ * @param string :p_use_alias                The alias.
+ * @param int    :p_use_line_start           The first line of the use statement.
+ * @param int    :p_use_line_end             The last line of the use statement.
  *
  * @type lastInsertId
  */
 insert into PAD_USE( fil_id
 ,                    use_name
+,                    use_namespace
+,                    use_fully_qualified_name
 ,                    use_is_class
 ,                    use_is_function
 ,                    use_is_constant
@@ -22,6 +26,8 @@ insert into PAD_USE( fil_id
 ,                    use_line_end)
 values( :p_fil_id
 ,       :p_use_name
+,       :p_use_namespace
+,       :p_use_fully_qualified_name
 ,       :p_use_is_class
 ,       :p_use_is_function
 ,       :p_use_is_constant

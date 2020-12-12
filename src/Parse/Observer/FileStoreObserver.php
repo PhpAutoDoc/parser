@@ -47,6 +47,37 @@ class FileStoreObserver
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
+   * Returns the ID of the package to which a source file belongs.
+   *
+   * @param string $path The path to the source file.
+   *
+   * @return int|null
+   */
+  private static function getPckId(string $path): ?int
+  {
+    $parts = explode(DIRECTORY_SEPARATOR, $path);
+    if (count($parts)>=4 && $parts[0]==='vendor')
+    {
+      $row = PhpAutoDoc::$dl->padPackageSearch($parts[1], $parts[2]);
+      if ($row===null)
+      {
+        $pckId = PhpAutoDoc::$dl->padPackageInsertPackage($parts[1], $parts[2]);
+      }
+      else
+      {
+        $pckId = $row['pck_id'];
+      }
+    }
+    else
+    {
+      $pckId = null;
+    }
+
+    return $pckId;
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
    * Triggers a NewSourceFileFoundEvent event.
    *
    * @param string $path      The path to the source file.
@@ -57,7 +88,9 @@ class FileStoreObserver
   {
     if (trim($contents)!=='')
     {
-      $filId = PhpAutoDoc::$dl->padFileInsertFile($path,
+      $pckId = self::getPckId($path);
+      $filId = PhpAutoDoc::$dl->padFileInsertFile($pckId,
+                                                  $path,
                                                   Cast::toManInt($isProject),
                                                   $contents);
 

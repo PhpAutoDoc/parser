@@ -16,15 +16,26 @@ create table PAD_DOCBLOCK
   doc_docblock   text
 );
 
+create table PAD_PACKAGE
+(
+  pck_id           integer primary key asc,
+  pck_vendor_name  varchar not null,
+  pck_project_name varchar not null
+);
+
+create unique index pad_package_idx1 on PAD_PACKAGE(pck_project_name, pck_vendor_name);
+
 create table PAD_FILE
 (
   fil_id           integer primary key asc,
   doc_id           integer,
+  pck_id           integer,
   fil_path         varchar not null,
   fil_is_parsed    integer not null,
   fil_is_project   integer not null,
   fil_is_seen      integer not null default 1,
   fil_contents     blob not null,
+  foreign key (pck_id) references PAD_PACKAGE(pck_id),
   foreign key (doc_id) references PAD_DOCBLOCK(doc_id)
 );
 
@@ -32,15 +43,17 @@ create unique index pad_file_idx1 on PAD_FILE(fil_path);
 
 create table PAD_USE
 (
-  use_id           integer primary key asc,
-  fil_id           integer not null,
-  use_name         varchar not null collate nocase,
-  use_is_class     integer not null,
-  use_is_function  integer not null,
-  use_is_constant  integer not null,
-  use_alias        varchar,
-  use_line_start   integer not null,                   -- The first line of the use statement.
-  use_line_end     integer not null,                   -- The last line of the use statement.
+  use_id                   integer primary key asc,
+  fil_id                   integer not null,
+  use_name                 varchar not null collate nocase, -- The name of the item.
+  use_namespace            varchar collate nocase,          -- The namespace where the item lives.
+  use_fully_qualified_name varchar not null collate nocase, -- The fully qualified name of the item.
+  use_is_class             integer not null,
+  use_is_function          integer not null,
+  use_is_constant          integer not null,
+  use_alias                varchar,
+  use_line_start           integer not null,                -- The first line of the use statement.
+  use_line_end             integer not null,                -- The last line of the use statement.
   foreign key (fil_id) references PAD_FILE(fil_id) on delete cascade
 );
 

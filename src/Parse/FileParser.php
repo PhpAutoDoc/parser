@@ -295,7 +295,12 @@ class FileParser
       $is_function = ($match['type'][0]==='T_FUNCTION ');
       $is_constant = ($match['type'][0]==='T_CONST ');
 
-      $uses[] = ['name'        => ltrim(TokenMatchHelper::code('name', $match, $this->tokens), '\\'),
+      $name = ltrim(TokenMatchHelper::code('name', $match, $this->tokens), '\\');
+      [$namespace, $name, $fullName] = NamespaceHelper::split($name);
+
+      $uses[] = ['namespace'   => $namespace,
+                 'name'        => $name,
+                 'full_name'   => $fullName,
                  'is_class'    => $is_class,
                  'is_function' => $is_function,
                  'is_constant' => $is_constant,
@@ -437,6 +442,8 @@ class FileParser
     {
       PhpAutoDoc::$dl->padUseInsertUse($this->source['fil_id'],
                                        $use['name'],
+                                       $use['namespace'],
+                                       $use['full_name'],
                                        Cast::toManInt($use['is_class']),
                                        Cast::toManInt($use['is_function']),
                                        Cast::toManInt($use['is_constant']),

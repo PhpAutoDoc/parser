@@ -1,0 +1,14 @@
+/**
+ * Search for package.
+ *
+ * @param string :p_pck_vendor_name  The vendor name.
+ * @param string :p_pck_project_name The project name.
+ *
+ * @type row0
+ */
+select pck_id
+,      pck_vendor_name
+,      pck_project_name
+from   PAD_PACKAGE
+where  pck_vendor_name  = :p_pck_vendor_name
+and    pck_project_name = :p_pck_project_name

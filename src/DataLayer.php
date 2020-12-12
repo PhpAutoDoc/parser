@@ -465,26 +465,29 @@ EOT;
   /**
    * Inserts a new source file.
    *
+   * @param int|null    $pPckId        The ID of the package to which the source files belongs.
    * @param string|null $pFilPath      The path to the source file.
    * @param int|null    $pFilIsProject If 1 the file belongs to the project to be documented.
    * @param string|null $pFilContents  The source code
    *
    * @return int
    */
-  public function padFileInsertFile(?string $pFilPath, ?int $pFilIsProject, ?string $pFilContents): int
+  public function padFileInsertFile(?int $pPckId, ?string $pFilPath, ?int $pFilIsProject, ?string $pFilContents): int
   {
-    $replace = [':p_fil_path' => $this->quoteVarchar($pFilPath), ':p_fil_is_project' => $this->quoteInt($pFilIsProject), ':p_fil_contents' => $this->quoteBlob($pFilContents)];
+    $replace = [':p_pck_id' => $this->quoteInt($pPckId), ':p_fil_path' => $this->quoteVarchar($pFilPath), ':p_fil_is_project' => $this->quoteInt($pFilIsProject), ':p_fil_contents' => $this->quoteBlob($pFilContents)];
     $query   = <<< EOT
-insert into PAD_FILE( fil_path
+insert into PAD_FILE( pck_id
+,                     fil_path
 ,                     fil_is_parsed
 ,                     fil_is_project
 ,                     fil_contents )
-values( :p_fil_path
+values( :p_pck_id
+,       :p_fil_path
 ,       0
 ,       :p_fil_is_project
 ,       :p_fil_contents )
 EOT;
-    $query = str_repeat(PHP_EOL, 9).$query;
+    $query = str_repeat(PHP_EOL, 10).$query;
 
     $this->executeNone($query, $replace);
     return $this->lastInsertId();
@@ -681,25 +684,78 @@ EOT;
 
   //--------------------------------------------------------------------------------------------------------------------
   /**
-   * Inserts a use.
+   * Inserts a new package.
    *
-   * @param int|null    $pFilId         The ID of the source file.
-   * @param string|null $pUseName       The fully qualified.
-   * @param int|null    $pUseIsClass    The alias/import is a class.
-   * @param int|null    $pUseIsFunction The alias/import is a function.
-   * @param int|null    $pUseIsConstant The alias/import is a constant.
-   * @param string|null $pUseAlias      The alias.
-   * @param int|null    $pUseLineStart  The first line of the use statement.
-   * @param int|null    $pUseLineEnd    The last line of the use statement.
+   * @param string|null $pPckVendorName  The vendor name.
+   * @param string|null $pPckProjectName The project name.
    *
    * @return int
    */
-  public function padUseInsertUse(?int $pFilId, ?string $pUseName, ?int $pUseIsClass, ?int $pUseIsFunction, ?int $pUseIsConstant, ?string $pUseAlias, ?int $pUseLineStart, ?int $pUseLineEnd): int
+  public function padPackageInsertPackage(?string $pPckVendorName, ?string $pPckProjectName): int
   {
-    $replace = [':p_fil_id' => $this->quoteInt($pFilId), ':p_use_name' => $this->quoteVarchar($pUseName), ':p_use_is_class' => $this->quoteInt($pUseIsClass), ':p_use_is_function' => $this->quoteInt($pUseIsFunction), ':p_use_is_constant' => $this->quoteInt($pUseIsConstant), ':p_use_alias' => $this->quoteVarchar($pUseAlias), ':p_use_line_start' => $this->quoteInt($pUseLineStart), ':p_use_line_end' => $this->quoteInt($pUseLineEnd)];
+    $replace = [':p_pck_vendor_name' => $this->quoteVarchar($pPckVendorName), ':p_pck_project_name' => $this->quoteVarchar($pPckProjectName)];
+    $query   = <<< EOT
+insert into PAD_PACKAGE( pck_vendor_name
+,                        pck_project_name )
+values( :p_pck_vendor_name
+,       :p_pck_project_name )
+EOT;
+    $query = str_repeat(PHP_EOL, 8).$query;
+
+    $this->executeNone($query, $replace);
+    return $this->lastInsertId();
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Search for package.
+   *
+   * @param string|null $pPckVendorName  The vendor name.
+   * @param string|null $pPckProjectName The project name.
+   *
+   * @return array|null
+   */
+  public function padPackageSearch(?string $pPckVendorName, ?string $pPckProjectName): ?array
+  {
+    $replace = [':p_pck_vendor_name' => $this->quoteVarchar($pPckVendorName), ':p_pck_project_name' => $this->quoteVarchar($pPckProjectName)];
+    $query   = <<< EOT
+select pck_id
+,      pck_vendor_name
+,      pck_project_name
+from   PAD_PACKAGE
+where  pck_vendor_name  = :p_pck_vendor_name
+and    pck_project_name = :p_pck_project_name
+EOT;
+    $query = str_repeat(PHP_EOL, 8).$query;
+
+    return $this->executeRow0($query, $replace);
+  }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  /**
+   * Inserts a use.
+   *
+   * @param int|null    $pFilId                 The ID of the source file.
+   * @param string|null $pUseName               The name of the item
+   * @param string|null $pUseNamespace          The The namespace where the item lives.
+   * @param string|null $pUseFullyQualifiedName The fully qualified name of the item.
+   * @param int|null    $pUseIsClass            The alias/import is a class.
+   * @param int|null    $pUseIsFunction         The alias/import is a function.
+   * @param int|null    $pUseIsConstant         The alias/import is a constant.
+   * @param string|null $pUseAlias              The alias.
+   * @param int|null    $pUseLineStart          The first line of the use statement.
+   * @param int|null    $pUseLineEnd            The last line of the use statement.
+   *
+   * @return int
+   */
+  public function padUseInsertUse(?int $pFilId, ?string $pUseName, ?string $pUseNamespace, ?string $pUseFullyQualifiedName, ?int $pUseIsClass, ?int $pUseIsFunction, ?int $pUseIsConstant, ?string $pUseAlias, ?int $pUseLineStart, ?int $pUseLineEnd): int
+  {
+    $replace = [':p_fil_id' => $this->quoteInt($pFilId), ':p_use_name' => $this->quoteVarchar($pUseName), ':p_use_namespace' => $this->quoteVarchar($pUseNamespace), ':p_use_fully_qualified_name' => $this->quoteVarchar($pUseFullyQualifiedName), ':p_use_is_class' => $this->quoteInt($pUseIsClass), ':p_use_is_function' => $this->quoteInt($pUseIsFunction), ':p_use_is_constant' => $this->quoteInt($pUseIsConstant), ':p_use_alias' => $this->quoteVarchar($pUseAlias), ':p_use_line_start' => $this->quoteInt($pUseLineStart), ':p_use_line_end' => $this->quoteInt($pUseLineEnd)];
     $query   = <<< EOT
 insert into PAD_USE( fil_id
 ,                    use_name
+,                    use_namespace
+,                    use_fully_qualified_name
 ,                    use_is_class
 ,                    use_is_function
 ,                    use_is_constant
@@ -708,6 +764,8 @@ insert into PAD_USE( fil_id
 ,                    use_line_end)
 values( :p_fil_id
 ,       :p_use_name
+,       :p_use_namespace
+,       :p_use_fully_qualified_name
 ,       :p_use_is_class
 ,       :p_use_is_function
 ,       :p_use_is_constant
@@ -715,7 +773,7 @@ values( :p_fil_id
 ,       :p_use_line_start
 ,       :p_use_line_end )
 EOT;
-    $query = str_repeat(PHP_EOL, 14).$query;
+    $query = str_repeat(PHP_EOL, 16).$query;
 
     $this->executeNone($query, $replace);
     return $this->lastInsertId();

@@ -1,0 +1,12 @@
+/**
+ * Inserts a new package.
+ *
+ * @param string :p_pck_vendor_name  The vendor name.
+ * @param string :p_pck_project_name The project name.
+ *
+ * @type lastInsertId
+ */
+insert into PAD_PACKAGE( pck_vendor_name
+,                        pck_project_name )
+values( :p_pck_vendor_name
+,       :p_pck_project_name )
